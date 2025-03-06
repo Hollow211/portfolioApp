@@ -1,0 +1,8 @@
+<div (click)="onShortcutClick()" (mouseup)="onMouseUp($event)" (mousedown)="onMouseDown($event)" class="unselectable" id="shortcut-container" cdkDrag>
+    <div id="img-container">
+        <img ngSrc={{imgPath}} fill priority>
+    </div>
+    <div id="info-container">
+        <p>{{title}}</p>
+    </div>
+</div>

@@ -1,0 +1,365 @@
+<app-header></app-header>
+<div id="home-container">
+    <div class="crt" id="background-container">
+        @for(item of codingTexts;track item) {
+            <p class="moving-element">{{item}}</p>
+        }
+    </div>
+    <div id="content-container">
+        <div id="shortcut-parent">
+            @for(item of shortcutsArray; track item) {
+                <app-shortcut (shortcutClicked)="onShortCutOpen(item.title)" [title]="item.title" [imgPath]="item.imgPath"></app-shortcut>
+            }
+        </div>
+        <div class="pop-up" id="projects" cdkDrag *ngIf="shortCutMap.get('Projects')">
+            <app-note-header (closeEvent)="onShortCutClose('Projects')" title="Projects"></app-note-header>
+            <app-directory (folderChosen)="showProject($event)" [folderMap]="projectKeys"></app-directory>
+        </div>
+        <div class="pop-up" id="about-me" cdkDrag *ngIf="shortCutMap.get('About Me')">
+            <app-note-header (closeEvent)="onShortCutClose('About Me')" title="About Me"></app-note-header>
+            <div class="about-me-details">
+                <div class="myphoto-container">
+                    <img ngSrc="assets/pics/me.jpg" priority fill>
+                </div>
+                <div class="about-me-info">
+                    <h4 style="color:#8b6d9c">Mohamed Saied</h4>
+                    <p style="font-size: 3px;font-family: pixelfont5;color: #494d7e;margin-bottom: 4px;">Full-Stack Developer</p>
+                    <p style="font-size: 1px;text-align: justify;line-height: 24px;word-break: break-all;">a passionate software developer specializing in building scalable
+                        web applications and solving complex problems with clean, efficient code.</p>
+                </div>
+                <div class="about-me-rest">
+                    <p>
+                        I specialize in <span>JavaScript</span>, <span>Angular</span>,
+                        <span>.NET</span> and <span>TypeScript</span>, 
+                    with experience in building full-stack applications and <span>RESTful/GraphQL</span> APIs.
+                    <br><br>
+                    I’ve always been fascinated by how technology can solve real-world problems, 
+                    and I love turning ideas into functional, beautiful applications.
+                    <br><br>
+                    with over 6 years of programming and coding, I have gained plenty of experience
+                    in alot of different fields and aspects, That I'm confident I can bring these knowledge into
+                    the environment I'm going to work at.
+                    <br>
+                    I can program comfortably in alot of languages, design softwares, write a clean code,
+                    communicate with peers and share ideas with them.
+                    <br><br>
+                    I mainly develop web application but I'm also a certified <span>Machine Learning Engineer</span>
+                    and have completed advanced courses in Machine Learning & Deep Learning from Udacity.
+                    <br><br>
+                    Having a passionate love for games, pushed me to dive into game development where I was give
+                    a push into a huge world of creativity. It reflected alot on my skills and now I channel
+                    that same creativity into building <span>interactive web applications</span> or <span>designing softwares</span>.
+                    <br><br>
+                    On my free time I search for new technologies, develop games, try new computer graphic techniques or just
+                    try to create digital art using different image processing.
+                    <br><br>
+                    Feel free to reach out using Contacts if you’d like to ask me about anything!!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="pop-up" id="contacts" cdkDrag *ngIf="shortCutMap.get('Contacts')">
+            <app-note-header (closeEvent)="onShortCutClose('Contacts')" title="Contacts"></app-note-header>
+            <div class="contact-details">
+                <app-contact imgPath="assets/icons/letter.png" text="saidm140@gmail.com"></app-contact>
+                <app-contact imgPath="assets/icons/mobile.png" text="(+20)1030022557"></app-contact>
+                <app-contact imgPath="assets/icons/linkedin.png" text="linkedin.com/in/msaied11/"></app-contact>
+                <app-contact imgPath="assets/icons/youtube.png" text="youtube.com/@msaied11"></app-contact>
+            </div>
+        </div>
+        <div class="pop-up" id="education" cdkDrag *ngIf="shortCutMap.get('Education')">
+            <app-note-header (closeEvent)="onShortCutClose('Education')" title="Education"></app-note-header>
+            <div class="edu-details">
+                <p>
+                    I graduated from
+                    <br>
+                    <span>Faculty of Computers and Artificial Intelligence, Helwan University</span>
+                    <br>
+                    - Majoring in Computer Science.
+                    <br>
+                    - A cumulative GPA of <span>3.74</span> (Excellent with Honors).
+                </p>
+            </div>
+        </div>
+        <div class="pop-up" id="work" cdkDrag *ngIf="shortCutMap.get('Experience')">
+            <app-note-header (closeEvent)="onShortCutClose('Experience')" title="Experience"></app-note-header>
+            <div class="edu-details">
+                <p>
+                    <span style="color:#272744">C# Developer Internship</span> at <span>Forgotten Mines Studio</span>
+                    <br>
+                    - USA, Remotely
+                    <br>
+                    - AUG 2023 - JAN 2024
+                </p>
+                <ul>
+                    <li>Helped designing and implementing the back end and front-end of the studio’s website using C# and 
+                        .NET.</li>
+                    <li>
+                        Helped developing and bug-fixing their product game "War to the core".
+                    </li>
+                    <li>
+                        Helped designing the database schema and performed the tasks required.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--Projects start from here-->
+        <div class="project-container pop-up" *ngIf="folderMap.get('Gpu Instance')" cdkDrag>
+            <app-note-header (closeEvent)="hideProject('Gpu Instance')" title="Gpu Instancing"></app-note-header>
+            <div id="gpu-instance-project-details">
+                <div class="gpu-instance-cover-img">
+                    <img ngSrc="assets/projects/gpu.png" fill>
+                </div>
+                <div class="project-info"> <!-- Tags goes here as well-->
+                    <p>Instancing millions of grass blades using GPU</p>
+                    <p><span>Tags:</span> C#, Unity, .NET, Game development, Graphics, Shaders</p>
+                </div>
+                <div class="gpu-instance-explain">
+                    <p>
+                        In this project I harnessed the unmatched computing powers of the GPU.
+                        <br><br>
+                        Instead of using the usual way of carrying the data from CPU to the GPU every frame,
+                        which can be usually fine, but in our situation we are trying to render
+                        <span>millions</span> of 3d grass models. 
+                        <br><br>
+                        The solution here is to send the data to the GPU initially so that the data resides
+                        on the its <span>memory</span>, then
+                        we tell the GPU to render the exact same model in just different locations.
+                        <br><br>
+                    </p>
+                    <div id="data-layout-div">
+                        <p style="text-indent: 0px;">
+                            The data we send to the GPU can very much vary depending on what you are going for.
+                            In my case I just used these. ->>
+                        </p>
+                        <div id="data-layout-img-cont">
+                            <img ngSrc="assets/pics/datalayout.png" fill>
+                        </div>
+                    </div>
+                    <br><br>
+                    <p>To complete the effect, I added some grass swaying animations. Given the wavey nature of the
+                        <span>sin(x)</span> function, we can apply that texture on our grass to simulate the
+                        natural wind force.
+                    </p>
+                    <br><br>
+                    <p>The final product</p>
+                    <br>
+                    <video class="gpu-video-container" controls>
+                        <source src="assets/vids/gpu2.mp4" type="video/mp4">
+                    </video>
+                    <a href="https://github.com/Hollow211/Grass-Gpu-Instancing">Link to the project</a>
+                </div>
+            </div>
+        </div>
+        <div class="project-container pop-up" *ngIf="folderMap.get('Filtered DoG')" cdkDrag>
+            <app-note-header (closeEvent)="hideProject('Filtered DoG')" title="Filtered DoG"></app-note-header>
+            <div id="filtered-dog-project-details">
+                <div class="filtered-dog-cover">
+                    <img ngSrc="assets/projects/dog.png" fill>
+                </div>
+                <div class="project-info">
+                    <p>Edge detection using difference of gaussians (DoG)</p>
+                    <p><span>Tags: </span>Python, Numpy, CV2, PIP, Image processing, Stylized Rendering</p>
+                </div>
+                <div class="dog-explain">
+                    <p>Exploring <span>difference of gaussians (DoG)</span> as a low pass filter which can eliminate high frequencies
+                        that in the context of image processing corresponds to edges.
+                        <br><br>
+                        I experminted using Extended which is a better version of DoG that adds new
+                        variables to the equation and further stylize the image, However it didn't suit my taste
+                        as it suffered from alot of noise.
+                        <br><br>
+                        In order to avoid this noise we use Filtered DoG which uses the <span>structure tensors</span> of the image
+                        to get the eigenvectors which allows us to to know which direction the gradients are pointing.
+                        <br><br>
+                        Here are some examples generated using my implementation of the filtered DoG.
+                    </p>
+                </div>
+                <app-image-comparison width="100%" height="350px" img1="assets/projects/dogblack2.png" 
+                img2="assets/projects/dogblack1.png"></app-image-comparison>
+                <p style="text-indent: 0px;">And another example with an actual Dog (get the bun?)</p>
+                <app-image-comparison style="padding:0px 80px" width="100%" height="500px" img1="assets/projects/DogOG.png"
+                img2="assets/projects/DogFilter.png">
+                </app-image-comparison>
+                <app-image-comparison width="100%" height="300px" img1="assets/projects/asOG.png"
+                img2="assets/projects/asDOG.png">
+                </app-image-comparison>
+                <a href="https://github.com/Hollow211/Filtered-DoG">Link to the project</a>
+            </div> 
+        </div>
+        <div class="project-container pop-up" *ngIf="folderMap.get('Finding Donors ML')" cdkDrag>
+            <app-note-header (closeEvent)="hideProject('Finding Donors ML')" title="Finding Donors"></app-note-header>
+            <div id="findingDonors-project-details">
+                <div class="project-info">
+                    <p>Finding donors for Charity using ML</p>
+                    <p><span>Tags: </span>Python, Numpy, Pandas, Machine Learning, Data preprocessing, Data Visualization</p>
+                </div>
+                <div>
+                    <br><br>
+                    <p>In this project I applied three different supervised learning techniques
+                         on data collected for the U.S. census to help CharityML (a fictitious charity organization)
+                          identify people most likely to donate to their cause.
+                        <br><br>
+                        I first explored the data, then applied series of preprocessing techniques
+                        to prepare the data for the training process. I then evaluated several supervised learners
+                        of my choice, and considered which is best suited for the solution.
+                    </p>
+                    <br><br>
+                    <p style="text-indent: 0px;">The supervised machine learners I used:</p>
+                    <ul>
+                        <li><span>Support Vector Machines</span></li>
+                        <li><span>Gradient Boosting</span></li>
+                        <li><span>K-Nearest Neighbour</span></li>
+                    </ul>
+                    <br><br>
+                    <p>Finally I fine tuned the model with the best perfomrance out of the three and 
+                        compared the results (after/before) tuning.
+                    </p>
+                    <br><br>
+                    <table>
+                        <tr>
+                            <th>Metric</th>
+                            <th>UnOptimized Model</th>
+                            <th>Optimized Model</th>
+                        </tr>
+                        <tr>
+                            <td>Accuracy</td>
+                            <td>86%</td>
+                            <td>87%</td>
+                        </tr>
+                        <tr>
+                            <td>F-score</td>
+                            <td>73.9%</td>
+                            <td>75.33%</td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <a href="https://github.com/Hollow211/FindingDonorsForCharityML">Link to the project</a>
+                </div>
+            </div>
+        </div>
+        <div class="project-container pop-up" *ngIf="folderMap.get('Explicit words detector')" cdkDrag>
+            <app-note-header (closeEvent)="hideProject('Explicit words detector')" title="Explicit words detector"></app-note-header>
+            <div id="expwords-project-details">
+                <div class="project-info">
+                    <p>Detecting explicit and toxic Arabic sentences using AI model (Arabert)</p>
+                    <p><span>Tags: </span>Python, Numpy, Pandas, Deep Learning, Machine Learning, Data preprocessing, Data Visualization</p>
+                </div>
+                <div>
+                    <br><br>
+                    <p>
+                        With the increased number of children using the internet,
+                        there has always been a concern from the parents on how to keep their 
+                        children as safe as possible from the harmful content over the internet.
+                        <br><br>
+                        One solution to prevent that is to keep them away from Hate speech or general toxic text data 
+                        that can draw the attention of a child to learn from it.
+                        While there are alot of models that solves this problem for English language,
+                        there are roughly any such models for Arabic, which motivated me to create one.
+                        <br><br>
+                        So here is my attempt at creating such a model, the model is fine-tuned on top of <span>Arabert</span>. 
+                        Dataset/Hyperparamters are all included in the model card in the link bellow.
+                        <br>
+                        The model scores <span>94% accuracy</span> and <span>85% F1-Score</span>.
+                        <br><br>
+                        Feel free to test the model and explore the code yourself using Inference API: 
+                        <a href="https://huggingface.co/Hollow211/ArabertHateSpeech">Model Inference</a>
+                    </p>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+        <div class="project-container pop-up" *ngIf="folderMap.get('Asynch message system')" cdkDrag>
+            <app-note-header (closeEvent)="hideProject('Asynch message system')" title="Asynch message system"></app-note-header>
+            <div id="msg-system-details">
+                <div class="project-info">
+                    <p>Asynchronous producer-consumer message system using kafka broker</p>
+                    <p><span>Tags: </span>Java, Docker, software design</p>
+                </div>
+                <div >
+                    <br>
+                    <p>
+                        A project that demonstrates the use of asynch message system in creating a
+                        producer consumer architecture.
+                        <br><br>
+                        The producer-consumer architecture I went for in this project is a <span>Marketer-Customer</span> one.
+                        It's an architecture that we are all familiar with as we experience it everytime we go for groceries.
+                        <br><br>
+                        - <span>Kafka </span>broker was used for managing the messages and the data records exchanged betwen the two.
+                        <br>
+                        - <span>Docker </span>was used to contain the many services associated in the project (mainly being the message system, the producer and the consumer).
+                    </p>
+                    <br><br>
+                    <a href="https://github.com/Hollow211/Marketer-Customer-with-kafka">Link to the project</a>
+                </div>
+            </div>
+        </div>
+        <div class="project-container pop-up" *ngIf="folderMap.get('Portfolio')" cdkDrag>
+            <app-note-header (closeEvent)="hideProject('Portfolio')" title="Portfolio"></app-note-header>
+            <div id="portfolio-details">
+                <div class="project-info">
+                    <p>My portfolio</p>
+                    <p><span>Tags: </span>Angular, Javacript, Typescript, HTML, CSS, Jquery, tailwind</p>
+                </div>
+                <div>
+                    <br>
+                    <p style="text-align: center;text-indent: 0px;">Well look around you! ;D</p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="project-container pop-up" *ngIf="folderMap.get('Flow-Based Bilaterial Filter')" cdkDrag>
+            <app-note-header (closeEvent)="hideProject('Flow-Based Bilaterial Filter')" title="Bilaterial Filter"></app-note-header>
+            <div id="bilaterial-details">
+                <div class="project-info">
+                    <p>Flow-based Bilaterial Filter</p>
+                    <p><span>Tags: </span>Python, Numpy, Cuda, Image processing, Image Effect</p>
+                </div>
+                <div>
+                    <br>
+                    <p>Bilaterial filter is one of the simplest filters and has a wide range of uses
+                        like denoising, tone management, enhancements.<br>
+                        But the most important feature of the <span>filter</span> is its ability
+                        to smooth images while also perserving edges or discontinuities,
+                        this allows it to be one of the best filters when it comes to image 
+                        abstraction in image processing term or image features 
+                        reduction in <span>deep/machine learning</span> term.
+                        <br><br>
+                        While taking performance and the ability to produce quality images into account
+                        the Bilterial filter scores low as it's not separable 
+                        (at least not without leaving many artifacts), also a Bileterial filter that 
+                        convolves over all of the image will mostly just blur 
+                        it instead of smoothing and keeping the discontinuities.
+                        <br><br>
+                        That's why we have to take local orientation of the image 
+                        <span>(Structure tensor)</span> into account, we simply filter along along 
+                        the local gauge coordinates of the image, instead of along 
+                        the coordinate axes. In case of an edge, filtering along 
+                        the gradient direction results in strengthening of the edge, 
+                        while filtering along the tangent direction results in 
+                        a smoothing operation along the edge, avoiding artifacts and 
+                        producing more coherent region boundaries.</p>
+                        <br><br>
+                        <p style="text-indent: 0px;">An example of applying the filter reducing the image features</p>
+                        <br>
+                        <app-image-comparison
+                        img1="assets/projects/catOG.png"
+                        img2="assets/projects/catSmooth.png" height="300px" width="100%">
+                        </app-image-comparison>
+                        <br><br>
+                        <p>Since we now have a limited palette and a very abstracted image, we can apply <span>pixelization</span> filter on 
+                            the result to get a nicely pixelated image of different resolutions.
+                        </p>
+                        <p>By simply scaling our abstracted image, we get some really nice pixel art look.</p>
+                        <br><br>
+                        <app-image-comparison
+                        img1="assets/projects/catOG.png"
+                        img2="assets/projects/catPixel.png" height="300px" width="100%">
+                        </app-image-comparison>
+                        <br><br>
+                        <a href="https://github.com/Hollow211/Flow-Based-Bilaterial-Filter">Link to the project</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

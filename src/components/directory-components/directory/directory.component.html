@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="infoBox">
+        <p>8 items</p>
+        <p>145K in disk</p>
+        <p>645K available</p>
+    </div>
+    <div>
+        <hr>
+        <hr>
+    </div>
+    <div class="directory">
+        @for(item of folderMap; track item) {
+            <app-folder (folderClicked)="onFolderChosen($event)" title={{item}}></app-folder>
+        }
+
+    </div>
+</div>

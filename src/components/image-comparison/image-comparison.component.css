@@ -1,0 +1,16 @@
+.slider-showoff {
+    margin: 0px;
+    padding: 0px;
+    box-sizing:border-box;
+    position: relative;
+}
+
+img {
+    image-rendering: auto;
+}
+
+img-comparison-slider {
+    --divider-width: 3px;
+    --divider-color: #272744;
+}
+  

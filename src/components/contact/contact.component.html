@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="icon">
+        <img ngSrc={{imgPath}} fill>
+    </div>
+    <p class="text">{{text}}</p>
+    <div (click)="copyToClipboard()" class="copy-icon">
+        <img ngSrc="assets/icons/copy.png" fill>
+    </div>
+</div>

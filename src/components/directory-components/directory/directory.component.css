@@ -1,0 +1,36 @@
+/* global */
+hr {
+    margin:0px;
+    margin-bottom: 1.5px;
+    border: 1px solid #494d7e;
+}
+p {
+    margin: 0px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 10px 5px;
+    font-size: small;
+    color: #8b6d9c;
+    font-family: 'pixelfont2bold';
+}
+
+.directory {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+
+    box-sizing: border-box;
+    padding: 10px;
+    column-gap: 10px;
+}
